@@ -6,7 +6,7 @@ const Header = () => {
     <div className='header'>
         <div className="header-contents">
             <h2>
-                NO more animals are going to extinct
+                NO more  animals are going to extinct
             </h2>
             <p>Lorem  ipsum dolor sit, amet consectetur adipisicing elit. Autem corrupti facere nisi rerum eaque, sint molestias magnam quaerat aliquid eius illo ea odio adipisci quasi rem at? Excepturi, odit dolor.</p>
             <button>explore</button>
