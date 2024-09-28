@@ -29,7 +29,8 @@
 .footer-content-left li,.footer-content-right li,.footer-content-center li{
    list-style: none;
    margin-bottom: 10px;
-   cursor: pointer;
+   cursor: pointer; 
+   align-items: start;
    
 }
 .footer-content-right h2,.footer-content-center h2{
@@ -52,6 +53,14 @@
 }
 .footer-social-icons img:hover{
     transform: scale(1.05);
-    background-color: blue;
+    background-color: rgb(149, 149, 214);
+    
+}
+.footer-content-right img{
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    
     
 }

@@ -15,7 +15,8 @@ const Navbar = ({setShowLogin}) => {
             <img src={Logo} alt="Logo" className='logo' />
              <ul className='navbar-menu'>
                 <li className={menu === "home" ? "active" : ""} onClick={() => handleMenuClick("home")}>home</li>
-                
+                <li className={menu === "news" ? "active" : ""} onClick={() => handleMenuClick("news")}>news</li>
+                <li className={menu === "partners" ? "active" : ""} onClick={() => handleMenuClick("partners")}>partners</li>
                 <li className={menu === "Suggestions" ? "active" : ""} onClick={() => handleMenuClick("Suggestions")}>contact us</li>
             </ul>
             <div className="navbar-right">

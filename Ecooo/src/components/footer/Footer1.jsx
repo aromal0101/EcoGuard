@@ -4,6 +4,9 @@ import logo from '../../assets/ecoguard.png'
 import facebook from '../../assets/facebook_icon.png'
 import linkedin from '../../assets/linkedin_icon.png'
 import twitter from '../../assets/twitter_icon.png'
+import call_icon from '../../assets/call.png'
+import mail_icon from '../../assets/mail.png'
+
 const Footer1 = () => {
   return (
     <div className='footer' id='footer'>
@@ -30,8 +33,8 @@ const Footer1 = () => {
             <div className="footer-content-right">
                 <h2>CONTACT US</h2>
                 <ul>
-                    <li>+11 12131 2113</li>
-                    <li>AHIAii@gmail.com</li>
+                    <li><img src={call_icon} alt="" />+11 12131 2113</li>
+                    <li><img src={mail_icon} alt="" />ecoguard@gmail.com</li>
                 </ul>
             </div>
         </div>
