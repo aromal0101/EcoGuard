@@ -1,28 +1,33 @@
-import React, { useState } from 'react';
-import Navbar from './components/navbar/Navbar';
-import { Route, Routes } from 'react-router-dom';
+// App.jsx
+import React, { useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Loginpopup from './components/LoginPopup/Loginpopup';
 import Home from './pages/home page/Home';
-import Cart from './pages/cart/Cart';
-import LoginPopup from './components/LoginPopup/Loginpopup'; // Fixed casing
-import Footer1 from './components/footer/Footer1';
-
+import SearchPage from './pages/searchPage/search1';
 
 const App = () => {
-  const [showLogin, setShowLogin] = useState(false); // Use parentheses
+  const headerRef = useRef(null);
+  const newsRef = useRef(null);
+  const partnershipRef = useRef(null);
+
+  const scrollToSection = (section) => {
+    if (section === 'headerRef' && headerRef.current) {
+      headerRef.current.scrollIntoView({ behavior: 'smooth' });
+    } else if (section === 'newsRef' && newsRef.current) {
+      newsRef.current.scrollIntoView({ behavior: 'smooth' });
+    } else if (section === 'partnershipRef' && partnershipRef.current) {
+      partnershipRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <>
-      {showLogin ? <LoginPopup setShowLogin = {setShowLogin}/>: <></>}
-      <div className='app'>
-        <Navbar setShowLogin={setShowLogin} />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/cart' element={<Cart />} />
-        </Routes>
-        
+    <div>
+      
+      <Routes>
+        <Route path="/" element={<Home headerRef={headerRef} newsRef={newsRef} partnershipRef={partnershipRef} />} />
+        <Route path="/search" element={<SearchPage />} />
+      </Routes>
       </div>
-      <Footer1/>
-    </>
   );
 }
 

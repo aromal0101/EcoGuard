@@ -1,40 +1,69 @@
-import React, { useState } from 'react'
-import './Loginpopup.css'
-import cross from '../../assets/cross_icon.png'
+import React, { useEffect, useState } from 'react';
+import './Loginpopup.css';
+import cross from '../../assets/cross_icon.png';
+import axios from 'axios';
 
-const Loginpopup = ({setShowLogin}) => {
-
-    const [currState,setCurrState] = useState("Sign Up")
+const Loginpopup = ({ setShowLogin }) => {
+  const [currState, setCurrState] = useState("Sign Up");
+    
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    
+    try {
+      if (currState === "Sign Up") {
+        const name = e.target[0].value;
+        const email = e.target[1].value;
+        const password = e.target[2].value;
+        const response = await axios.post('http://localhost:3000/api/register', { name, email, password });
+        alert(response.data.message || 'Account created successfully');
+        localStorage.setItem("user",name);
+        setShowLogin(false);
+      } else {
+        const email = e.target[0].value;
+        const password = e.target[1].value;
+        const response = await axios.post('http://localhost:3000/api/login', { email, password });
+        alert(response.data.message || 'Logged in successfully');
+        localStorage.setItem("user",email);
+        setShowLogin(false);
+      }
+      window.location.reload(); 
+    } catch (error) {
+      if (error.response) {
+        alert(`Error: ${error.response.data.message || 'An error occurred'}`);
+      } else if (error.request) {
+        alert('No response from server. Please try again later.');
+      } else {
+        alert('An unexpected error occurred: ' + error.message);  
+      }
+      console.error(error);
+    }
+  };
 
   return (
     <div className='login-popup'>
-        <form className='login-popup-container'>
-           <div className="login-popup-title">
-            <h2>
-                {currState}
-            </h2>
-            <img onClick={()=>setShowLogin(false)} src={cross} alt="" />
-            </div> 
-            <div className="login-popup-inputs">
-                {currState==="Login" ? <></>: <input type="text" placeholder='your name' required />}
-               
-                <input type="email" placeholder='your email' required />
-                <input type="password" placeholder='password' required />
-            </div>
-            <button>{currState==="Sign up" ? "create account" : "login"}</button>
-            <div className="login-popup-condition">
-                <input type="checkbox" required />
-                <p>By continuing, I agree to the terms of use & privacy policy</p>
-            </div>
-            {currState==="Login"
-            ?<p>create a new account? <span onClick={()=>setCurrState("Sign up")}>Click here</span></p>
-            :<p>Already have an account? <span onClick={()=>setCurrState("Login")}>login here</span></p>
-            }
-            
-            
-            </form>
+      <form className='login-popup-container' onSubmit={handleSubmit}>
+        <div className="login-popup-title">
+          <h2>{currState}</h2>
+          <img onClick={() => setShowLogin(false)} src={cross} alt="" />
+        </div>
+        <div className="login-popup-inputs">
+          {currState === "Sign Up" && <input type="text" placeholder='your name' required />}
+          <input type="email" placeholder='your email' required />
+          <input type="password" placeholder='password' required />
+        </div>
+        <button type="submit">{currState === "Sign Up" ? "Create Account" : "Login"}</button>
+        <div className="login-popup-condition">
+          <input type="checkbox" required />
+          <p>By continuing, I agree to the terms of use & privacy policy</p>
+        </div>
+        {currState === "Login"
+          ? <p>Create a new account? <span onClick={() => setCurrState("Sign Up")}>Click here</span></p>
+          : <p>Already have an account? <span onClick={() => setCurrState("Login")}>Login here</span></p>
+        }
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default Loginpopup
+export default Loginpopup;
