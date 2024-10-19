@@ -70,6 +70,57 @@ app.post('/api/login', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+app.get('/api/species', async (req, res) => {
+  const { type, status, habitat, searchTerm } = req.query;
+
+  try {
+    let query = `SELECT * FROM endangered_species WHERE 1=1`;
+    
+    // Add filters based on query parameters
+    if (type && type !== 'all') {
+      query += ` AND type = '${type}'`;
+    }
+    if (status && status !== 'all') {
+      query += ` AND status = '${status}'`;
+    }
+    if (habitat && habitat !== 'all') {
+      query += ` AND habitat = '${habitat}'`;
+    }
+    if (searchTerm) {
+      query += ` AND LOWER(name) LIKE LOWER('%${searchTerm}%')`;
+    }
+
+    const result = await pool.query(query);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching species data:', error);
+    res.status(500).send('Server error');
+  }
+});
+
+
+app.get('/api/species/:id', async (req, res) => {
+  const { id } = req.params;
+  console.log('Received request for species with ID:', id);
+  try {
+    const query = 'SELECT * FROM species WHERE id = $1';
+    console.log('Executing query:', query, 'with params:', [id]);
+    const { rows } = await pool.query(query, [id]);
+    console.log('Query result:', rows);
+    
+    if (rows.length === 0) {
+      console.log('No species found for ID:', id);
+      return res.status(404).json({ message: 'Species not found' });
+    }
+    
+    console.log('Sending response:', rows[0]);
+    res.json(rows[0]);
+  } catch (error) {
+    console.error('Error fetching species:', error);
+    res.status(500).json({ message: 'Internal server error', error: error.toString() });
+  }
+});
+
 
 // Start the server
 const PORT = process.env.PORT || 3000;
