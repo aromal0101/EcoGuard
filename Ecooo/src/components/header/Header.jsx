@@ -3,7 +3,7 @@ import './Header.css'
 
 const Header = () => {
   return (
-    <div className='header'>
+    <div className='header0'>
         <div className="header-contents">
             <h2>
                 NO more animals are going to extinct

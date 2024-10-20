@@ -8,37 +8,43 @@ const Loginpopup = ({ setShowLogin }) => {
     
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    
     try {
       if (currState === "Sign Up") {
         const name = e.target[0].value;
         const email = e.target[1].value;
         const password = e.target[2].value;
-        const response = await axios.post('http://localhost:3000/api/register', { name, email, password });
+        console.log('Attempting to register:', { name, email });
+        const response = await axios.post('http://ecoguard.cfi0ykas6xel.ap-south-1.rds.amazonaws.com/api/register', { name, email, password });
+        console.log('Registration response:', response.data);
         alert(response.data.message || 'Account created successfully');
-        localStorage.setItem("user",name);
+        localStorage.setItem("user", name);
         setShowLogin(false);
       } else {
         const email = e.target[0].value;
         const password = e.target[1].value;
-        const response = await axios.post('http://localhost:3000/api/login', { email, password });
+        console.log('Attempting to login:', { email });
+        const response = await axios.post('http://ecoguard.cfi0ykas6xel.ap-south-1.rds.amazonaws.com/api/login', { email, password });
+        console.log('Login response:', response.data);
         alert(response.data.message || 'Logged in successfully');
-        localStorage.setItem("user",email);
+        localStorage.setItem("user", email);
         setShowLogin(false);
       }
-      window.location.reload(); 
+      window.location.reload();
     } catch (error) {
+      console.error('Error details:', error);
       if (error.response) {
+        console.error('Error response:', error.response.data);
         alert(`Error: ${error.response.data.message || 'An error occurred'}`);
       } else if (error.request) {
+        console.error('No response received');
         alert('No response from server. Please try again later.');
       } else {
-        alert('An unexpected error occurred: ' + error.message);  
+        console.error('Unexpected error:', error.message);
+        alert('An unexpected error occurred: ' + error.message);
       }
-      console.error(error);
     }
   };
+  
 
   return (
     <div className='login-popup'>

@@ -1,17 +1,21 @@
-.header{
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap');
+.header0 {
     height: 34vw;
     margin: 30px auto;
-    background: url('../../assets/background.jpg') no-repeat;
+    background: url('../../assets/background.jpg') no-repeat center; /* Center the image */
     background-size: cover;
-    position:relative;
+    position: relative;
     width: 100%;
+    max-width: 90%; /* Ensures the image doesn't touch the left and right borders */
+    padding: 20px; /* Add some padding for top and bottom */
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
-    
+    border-radius: 10px;
+    box-sizing: border-box; /* Ensures padding and margin are included in width calculation */
 }
-.header-contents{
+
+.header-contents {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -20,28 +24,40 @@
     max-width: 50%;
     bottom: 10%;
     left: 6vw;
-    animation: fadeIn 3s ;
+    animation: fadeIn 3s;
 }
-.header-contents h2{
-    font-weight: 500;
+
+
+
+.header-contents h2 {
+    font-family: "DM Serif Display", serif;
+    font-weight: 500; /* Make the font bold */
     color: white;
-    font-size: max(4.5vw,22px);
+    font-size: max(4.5vw, 30px); /* Increase size slightly for better visibility */
+    text-transform: uppercase; /* Make all letters capital */
+    letter-spacing: 2px; /* Add spacing between the letters for a cleaner look */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add a subtle shadow for depth */
+    margin: 0; /* Remove any default margins */
 }
-.header-contents p{
+
+
+.header-contents p {
     color: white;
     font-size: 1vw;
 }
-.header-contents button{
+
+.header-contents button {
     border: none;
     color: #747474;
     padding: 1vw 2.3vw;
     font-weight: 500;
     background-color: white;
-    font-size: max(1vw,13px);
+    font-size: max(1vw, 13px);
     border-radius: 50px;
     transition: 0.5s;
     cursor: pointer;
 }
-.header-contents button:hover{
+
+.header-contents button:hover {
     transform: scale(1.15);
 }

@@ -12,10 +12,10 @@ app.use(bodyParser.json());
 
 // PostgreSQL connection
 const pool = new Pool({
-  user: 'aromal',
-  host: 'localhost',
-  database: 'animal1',
-  password: '0101',
+  user: 'ecoguard',
+  host: 'ecoguard.cfi0ykas6xel.ap-south-1.rds.amazonaws.com',
+  database: 'ecoguard',
+  password: '12345678',
   port: 5432,
 });
 

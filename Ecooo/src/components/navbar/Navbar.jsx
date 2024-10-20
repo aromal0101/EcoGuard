@@ -4,6 +4,9 @@ import './Navbar.css';
 import Logo from '../../assets/ecoguard.png';
 import searchicon from '../../assets/search_icon.png';
 import { Link } from 'react-router-dom';
+import Profile from '../../assets/profile_icon.png';
+import logout from '../../assets/logout_icon.png';
+
 
 const Navbar = ({ setShowLogin, scrollToSection }) => {
     const [menu, setMenu] = useState("home"); // Initialize with "home"
@@ -36,13 +39,21 @@ const Navbar = ({ setShowLogin, scrollToSection }) => {
                 <Link to={"/search"}>
                     <img src={searchicon} alt="Search" style={{ cursor: 'pointer' }} />
                 </Link>
+                
                 {login ? (
-                    <button onClick={() => {
-                        localStorage.clear();
-                        window.location.reload();
-                    }}>
-                        log out
-                    </button>
+                    <div className="navbar-profile">
+                        <img src={Profile}/>
+                        <ul className='nav-profile-dropdown'>
+                            <li onClick={() => {
+                                localStorage.clear();
+                                window.location.reload();
+                                 }}>
+                                 <img src={logout}/><p>logout</p></li>
+                        </ul>
+
+
+                    </div>
+                  
                 ) : (
                     <button onClick={() => setShowLogin(true)}>sign in</button>
                 )}
