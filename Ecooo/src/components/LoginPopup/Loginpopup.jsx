@@ -14,7 +14,7 @@ const Loginpopup = ({ setShowLogin }) => {
         const email = e.target[1].value;
         const password = e.target[2].value;
         console.log('Attempting to register:', { name, email });
-        const response = await axios.post('http://ecoguard.cfi0ykas6xel.ap-south-1.rds.amazonaws.com/api/register', { name, email, password });
+        const response = await axios.post('https://ecoguard.cfi0ykas6xel.ap-south-1.rds.amazonaws.com/api/register', { name, email, password });
         console.log('Registration response:', response.data);
         alert(response.data.message || 'Account created successfully');
         localStorage.setItem("user", name);
@@ -23,7 +23,7 @@ const Loginpopup = ({ setShowLogin }) => {
         const email = e.target[0].value;
         const password = e.target[1].value;
         console.log('Attempting to login:', { email });
-        const response = await axios.post('http://ecoguard.cfi0ykas6xel.ap-south-1.rds.amazonaws.com/api/login', { email, password });
+        const response = await axios.post('https://ecoguard.cfi0ykas6xel.ap-south-1.rds.amazonaws.com/api/login', { email, password });
         console.log('Login response:', response.data);
         alert(response.data.message || 'Logged in successfully');
         localStorage.setItem("user", email);
