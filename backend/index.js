@@ -70,54 +70,86 @@ app.post('/api/login', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
-app.get('/api/species', async (req, res) => {
-  const { type, status, habitat, searchTerm } = req.query;
 
+//serach  page
+app.get('/api/species', async (req, res) => {
+  const { kingdomName, redlistcategory, populationtrend, searchTerm } = req.query;
+  console.log(kingdomName)
   try {
-    let query = `SELECT * FROM endangered_species WHERE 1=1`;
-    
-    // Add filters based on query parameters
-    if (type && type !== 'all') {
-      query += ` AND type = '${type}'`;
+    const queryParams = [];
+    let query = `
+   SELECT 
+    ss."assesmentid",
+    t."scientificName",
+    t."kingdomName",
+    ss."redlistcategory",
+    ss."populationtrend"
+FROM speciesstatus ss
+INNER JOIN speciesconservation sc ON sc."assessmentId" = ss."assesmentid"
+INNER JOIN taxonomy t ON t."internalTaxonId" = sc."internalTaxonId"
+WHERE 1=1 `;
+
+    if (kingdomName && kingdomName !== 'all') {
+      query += `AND t."kingdomName" = $${queryParams.length + 1}`;
+      queryParams.push(kingdomName);
     }
-    if (status && status !== 'all') {
-      query += ` AND status = '${status}'`;
+    if (redlistcategory && redlistcategory !== 'all') {
+      query += ` AND ss.redlistcategory = $${queryParams.length + 1}`;
+      queryParams.push(redlistcategory);
     }
-    if (habitat && habitat !== 'all') {
-      query += ` AND habitat = '${habitat}'`;
+    if (populationtrend && populationtrend !== 'all') {
+      query += ` AND ss.populationtrend = $${queryParams.length + 1}`;
+      queryParams.push(populationtrend);
     }
     if (searchTerm) {
-      query += ` AND LOWER(name) LIKE LOWER('%${searchTerm}%')`;
+      query += ` AND t."scientificName" LIKE $${queryParams.length + 1}`;
+      queryParams.push(`%${searchTerm}%`);
     }
 
-    const result = await pool.query(query);
+    console.log('Executing query:', query, 'with params:', queryParams);
+
+    const result = await pool.query(query, queryParams);
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching species data:', error);
-    res.status(500).send('Server error');
+    console.error('Error fetching species data:', error.stack);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
 
-app.get('/api/species/:id', async (req, res) => {
-  const { id } = req.params;
-  console.log('Received request for species with ID:', id);
+app.get('/api/species/:assesmentid', async (req, res) => {
+  const { assesmentid } = req.params;
+  console.log('Received request for species with assesmentid:', assesmentid);
+
   try {
-    const query = 'SELECT * FROM species WHERE id = $1';
-    console.log('Executing query:', query, 'with params:', [id]);
-    const { rows } = await pool.query(query, [id]);
+    const query = `
+              SELECT *                                                            
+              FROM speciesstatus ss
+              INNER JOIN speciesconservation sc ON ss."assesmentid" = sc."assessmentId"
+              INNER JOIN taxonomy t ON sc."internalTaxonId" = t."internalTaxonId"
+              INNER JOIN speciesdetails sd ON sc."assessmentId" = sd."assessmentId"
+              INNER JOIN speciesthreats st ON sd."assessmentId" = st."assessmentId"
+              WHERE ss."assesmentid" = $1
+              `;
+
+    console.log('Executing query:', query, 'with params:', [assesmentid]);
+    const { rows } = await pool.query(query, [assesmentid]);
     console.log('Query result:', rows);
-    
+
     if (rows.length === 0) {
-      console.log('No species found for ID:', id);
+      console.log('No species found for assesmentid:', assesmentid);
       return res.status(404).json({ message: 'Species not found' });
     }
-    
+
     console.log('Sending response:', rows[0]);
     res.json(rows[0]);
   } catch (error) {
     console.error('Error fetching species:', error);
-    res.status(500).json({ message: 'Internal server error', error: error.toString() });
+    res.status(500).json({ 
+      message: 'Internal server error', 
+      error: error.toString(),
+      stack: error.stack
+    });
   }
 });
 

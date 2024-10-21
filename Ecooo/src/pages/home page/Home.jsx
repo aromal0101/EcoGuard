@@ -7,6 +7,7 @@ import News from '../../components/news/News';
 import Navbar from '../../components/navbar/Navbar'; // Import the Navbar
 import Footer1 from '../../components/footer/Footer1'
 import Loginpopup from '../../components/LoginPopup/Loginpopup';
+import Suggestion from '../../components/suggestion/Suggestion';
 
 const Home = () => {
   const headerRef = useRef(null); // Ref for header section
@@ -42,6 +43,9 @@ const Home = () => {
       </div>
       <div ref={partnershipRef} className="partnership-section">
         <Partnership />
+      </div>
+      <div ref={suggestionsRef} className="partnership-section">
+        <Suggestion/>
       </div>
       <div>
         <Footer1 />

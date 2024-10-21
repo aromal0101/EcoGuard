@@ -5,31 +5,51 @@ import SimpleFooter from '../../components/SimpleFooter/SimpleFooter';
 import logo from '../../assets/ecoguard.png';
 import { Link } from 'react-router-dom';
 
-const search1 = () => {
+const Search1 = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState({
-    type: 'all',
-    status: 'all',
-    habitat: 'all',
+    kingdomName: 'all',
+    redlistcategory: 'all',
+    populationtrend: 'all',
   });
   const [speciesData, setSpeciesData] = useState([]);
   const [visibleSpecies, setVisibleSpecies] = useState(15);
-  
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Fetch species data from the backend
   useEffect(() => {
-    const fetchSpeciesData = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/api/species?type=${filters.type}&status=${filters.status}&habitat=${filters.habitat}&searchTerm=${searchTerm}`);
-        const data = await response.json();
-        setSpeciesData(data);
-      } catch (error) {
-        console.error('Error fetching species data:', error);
-      }
-    };
-
-    fetchSpeciesData();
+    const timeoutId = setTimeout(() => {
+      const fetchSpeciesData = async () => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const queryParams = new URLSearchParams({
+            kingdomName: filters.kingdomName,
+            redlistcategory: filters.redlistcategory,
+            populationtrend: filters.populationtrend,
+            searchTerm: searchTerm,
+          }).toString();
+          
+          const response = await fetch(`http://localhost:3000/api/species?${queryParams}`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch species data');
+          }
+          const data = await response.json();
+          setSpeciesData(data);
+        } catch (error) {
+          console.error('Error fetching species data:', error);
+          setError('Failed to load species data. Please try again later.');
+        } finally {
+          setIsLoading(false);
+        }
+      };
+  
+      fetchSpeciesData();
+    }, 500); // 500ms debounce
+  
+    return () => clearTimeout(timeoutId);
   }, [filters, searchTerm]);
+  
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -50,37 +70,38 @@ const search1 = () => {
 
   return (
     <div>
-    <div className="pageContainer">
-      <header className="header1">
-        <Link to={'/'}>
-          <img src={logo} alt="" className="logo" />
-        </Link>
-        <div className="searchContainer">
-          <Search className="searchIcon" size={20} />
-          <input
-            type="text"
-            placeholder="Search endangered species..."
-            value={searchTerm}
-            onChange={handleSearch}
-            className="searchInput"
-          />
-        </div>
-      </header>
+      <div className="pageContainer">
+        <header className="header1">
+          <Link to={'/'}>
+            <img src={logo} alt="" className="logo" />
+          </Link>
+          <div className="searchContainer">
+            <Search className="searchIcon" size={20} />
+            <input
+              type="text"
+              placeholder="Search endangered species..."
+              value={searchTerm}
+              onChange={handleSearch}
+              className="searchInput"
+            />
+          </div>
+        </header>
 
-      <div className="mainContent">
+        <div className="mainContent">
+          
           <aside className="filterSidebar">
           <h2>Filters</h2>
           <div className="filterGroup">
-            <h3>Type</h3>
-            <select onChange={(e) => handleFilterChange('type', e.target.value)} className="filterSelect">
+            <h3>kingdomName</h3>
+            <select onChange={(e) => handleFilterChange('kingdomName', e.target.value)} className="filterSelect">
               <option value="all">All</option>
-              <option value="Animal">Animal</option>
-              <option value="Plant">Plant</option>
+              <option value="ANIMALIA">Animalia</option>
+              <option value="PLANTAE">Plantae</option>
             </select>
           </div>
           <div className="filterGroup">
-            <h3>Status</h3>
-            <select onChange={(e) => handleFilterChange('status', e.target.value)} className="filterSelect">
+            <h3>redlistcategory</h3>
+            <select onChange={(e) => handleFilterChange('redlistcategory', e.target.value)} className="filterSelect">
               <option value="all">All</option>
               <option value="Critically Endangered">Critically Endangered</option>
               <option value="Endangered">Endangered</option>
@@ -88,45 +109,45 @@ const search1 = () => {
             </select>
           </div>
           <div className="filterGroup">
-            <h3>Habitat</h3>
-            <select onChange={(e) => handleFilterChange('habitat', e.target.value)} className="filterSelect">
+            <h3>populationtrend</h3>
+            <select onChange={(e) => handleFilterChange('populationtrend', e.target.value)} className="filterSelect">
               <option value="all">All</option>
-              <option value="Temperate Forest">Temperate Forest</option>
-              <option value="Tropical Rainforest">Tropical Rainforest</option>
-              <option value="Grassland">Grassland</option>
-              <option value="Marine">Marine</option>
-              <option value="Various">Various</option>
-              <option value="Wetlands">Wetlands</option>
+              <option value="Increasing">Increasing</option>
+              <option value="Decreasing">Decreasing</option>
+              
             </select>
           </div>
-        </aside>
+        
+          </aside>
 
-        <main className="speciesGrid">
-          {filteredSpecies.map((species) => (
-            <Link
-              to={`/species/${species.id}`} // Link to the detail page
-              key={species.id}
-              className={`speciesCard ${species.status === 'Critically Endangered' ? 'critically-endangered' : ''}`}
-            >
-              <h2 className="speciesName">{species.name}</h2>
-              <p className="speciesDetail"><strong>Type:</strong> {species.type}</p>
-              <p className="speciesDetail"><strong>Status:</strong> {species.status}</p>
-              <p className="speciesDetail"><strong>Population:</strong> {species.population}</p>
-              <p className="speciesDetail"><strong>Habitat:</strong> {species.habitat}</p>
-            </Link>
-          ))}
-        </main>
+          <main className="speciesGrid">
+            {isLoading && <p>Loading species data...</p>}
+            {error && <p className="error-message">{error}</p>}
+            {!isLoading && !error && filteredSpecies.length === 0 && (
+              <p>No species found matching the current criteria.</p>
+            )}
+            {filteredSpecies.map((species) => (
+              <Link
+                to={`/species/${species.assesmentid}`}
+                key={species.assesmentid}
+                className={`speciesCard ${species.redlistcategory === 'Critically Endangered' ? 'critically-endangered' : ''}`}
+              >
+                <h2 className="speciesName">{species.scientificName}</h2>
+                <p className="speciesDetail"><strong>Kingdom:</strong> {species.kingdomName}</p>
+                <p className="speciesDetail"><strong>Status:</strong> {species.redlistcategory}</p>
+                <p className="speciesDetail"><strong>Population:</strong> {species.populationtrend}</p>
+              </Link>
+            ))}
+          </main>
+        </div>
+
+        {!isLoading && !error && visibleSpecies < speciesData.length && (
+          <button onClick={loadMoreSpecies} className="loadMoreButton">Load More</button>
+        )}
       </div>
-
-      {visibleSpecies < speciesData.length && (
-        <button onClick={loadMoreSpecies} className="loadMoreButton">Load More</button>
-      )}
-
-      
-    </div>
-    <SimpleFooter />
+      <SimpleFooter />
     </div>
   );
 };
 
-export default search1;
+export default Search1;
