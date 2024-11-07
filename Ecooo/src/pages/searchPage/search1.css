@@ -1,131 +1,130 @@
 /* search1.css */
 
 .pageContainer {
-    min-height: 100vh;
-    background-color: #f8f9fa;
-    font-family: Arial, sans-serif;
-  }
-  
-  .header1 {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center content horizontally */
-    padding: 20px;
-    background-color: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .logo {
-    width: 100px;
-    margin-right: 20px;
-  }
-  
-  .searchContainer {
-    flex-grow: 1;
-  max-width: 600px;
-  position: relative;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.header1 {
   display: flex;
-  justify-content: center;
-  }
-  
-  .searchInput {
-    width: 100%;
-  padding: 10px 40px;
-  font-size: 16px;
+  align-items: center;
+  justify-content: center; /* Center content horizontally */
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: 100px;
+  margin-right: 20px;
+}
+
+.searchContainer {
+  flex-grow: 1;
+max-width: 600px;
+position: relative;
+display: flex;
+justify-content: center;
+}
+
+.searchInput {
+  width: 100%;
+padding: 10px 40px;
+font-size: 16px;
+border: 1px solid #dfe1e5;
+border-radius: 24px;
+outline: none;
+max-width: 600px;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #9aa0a6;
+}
+
+.mainContent {
+  display: flex;
+  padding: 20px;
+}
+
+.filterSidebar {
+  width: 250px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-right: 20px;
+}
+
+.filterGroup {
+  margin-bottom: 20px;
+}
+
+.filterSelect {
+  width: 100%;
+  padding: 8px;
   border: 1px solid #dfe1e5;
-  border-radius: 24px;
-  outline: none;
-  max-width: 600px;
-  }
-  
-  .searchIcon {
-    position: absolute;
-    top: 50%;
-    left: 12px;
-    transform: translateY(-50%);
-    color: #9aa0a6;
-  }
-  
-  .mainContent {
-    display: flex;
-    padding: 20px;
-  }
-  
-  .filterSidebar {
-    width: 250px;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-right: 20px;
-  }
-  
-  .filterGroup {
-    margin-bottom: 20px;
-  }
-  
-  .filterSelect {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #dfe1e5;
-    border-radius: 4px;
-    background-color: white;
-  }
-  
-  .speciesGrid {
-    flex-grow: 1;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  
-  .speciesCard {
-    background-color: white; /* No background color for critically endangered */
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-  }
-  
-  .speciesCard.critically-endangered {
-    border-top: 4px solid red; /* Red border on top */
-    border-left: 4px solid red; /* Red border on left */
-  }
-  
-  .speciesCard:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .speciesName {
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: #1a0dab;
-    font-size: 18px;
-  }
-  
-  .speciesDetail {
-    margin: 5px 0;
-    color: #545454;
-    font-size: 14px;
-  }
-  
-  .loadMoreButton {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    transition: 0.5s;
-    cursor: pointer;
-  }
-  .loadMoreButton:hover{
-    transform: scale(1.05);
-  }
-  
+  border-radius: 4px;
+  background-color: white;
+}
+
+.speciesGrid {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.speciesCard {
+  background-color: white; /* No background color for critically endangered */
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.speciesCard.critically-endangered {
+  border-top: 4px solid red; /* Red border on top */
+  border-left: 4px solid red; /* Red border on left */
+}
+
+.speciesCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.speciesName {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #1a0dab;
+  font-size: 18px;
+}
+
+.speciesDetail {
+  margin: 5px 0;
+  color: #545454;
+  font-size: 14px;
+}
+
+.loadMoreButton {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.loadMoreButton:hover{
+  transform: scale(1.05);
+}

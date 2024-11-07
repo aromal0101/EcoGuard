@@ -92,7 +92,7 @@ const Search1 = () => {
           <aside className="filterSidebar">
           <h2>Filters</h2>
           <div className="filterGroup">
-            <h3>kingdomName</h3>
+            <h3>Kingdom name</h3>
             <select onChange={(e) => handleFilterChange('kingdomName', e.target.value)} className="filterSelect">
               <option value="all">All</option>
               <option value="ANIMALIA">Animalia</option>
@@ -100,7 +100,7 @@ const Search1 = () => {
             </select>
           </div>
           <div className="filterGroup">
-            <h3>redlistcategory</h3>
+            <h3>Red list category</h3>
             <select onChange={(e) => handleFilterChange('redlistcategory', e.target.value)} className="filterSelect">
               <option value="all">All</option>
               <option value="Critically Endangered">Critically Endangered</option>
@@ -109,7 +109,7 @@ const Search1 = () => {
             </select>
           </div>
           <div className="filterGroup">
-            <h3>populationtrend</h3>
+            <h3>Population trend</h3>
             <select onChange={(e) => handleFilterChange('populationtrend', e.target.value)} className="filterSelect">
               <option value="all">All</option>
               <option value="Increasing">Increasing</option>

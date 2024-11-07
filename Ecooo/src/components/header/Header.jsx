@@ -9,7 +9,7 @@ const Header = () => {
                 NO more animals are going to extinct
             </h2>
             <p>This phrase embodies the hope and commitment to halt the ongoing loss of species across the globe. It serves as a reminder that, through collective effort, we can prevent extinction and safeguard the diversity of life on Earth for future generations.</p>
-            <button>Donate</button>
+            <button><a href='http://localhost:5173/donation'>Donate</a></button>
         </div>
 
     </div>

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/home page/Home';
 import SearchPage from './pages/searchPage/search1';
 import SpeciesDetail from './pages/details page/SpeciesDetail';
+import DonationPage from './pages/donation/Donation';
 
 
 const App = () => {
@@ -27,7 +28,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home headerRef={headerRef} newsRef={newsRef} partnershipRef={partnershipRef} />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/species/:assesmentid" element={<SpeciesDetail />} />
+        <Route path="/species/:assessmentId" element={<SpeciesDetail />} />
+        <Route path="/donation" element={<DonationPage/>}/>
       </Routes>
       </div>
   );

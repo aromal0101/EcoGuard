@@ -14,7 +14,7 @@ const Footer1 = () => {
             
             <div className="footer-content-left">
                 <img src={logo} alt="" />
-                <p>Our platform provides essential information about endangered species to raise awareness and inspire conservation efforts. Join us in protecting biodiversity and ensuring a future where no species goes extinct.</p>
+                <p>Thank you for supporting our mission to protect endangered species and preserve biodiversity. Your contributions help us drive impactful conservation efforts, safeguard habitats, and inspire global action. Together, we can create a future where wildlife and ecosystems thrive. Stay connected with us for updates, stories of hope, and ways you can continue making a difference.</p>
                 <div className="footer-social-icons">
                     <img src={facebook} alt="" />
                     <img src={twitter} alt="" />
@@ -25,9 +25,10 @@ const Footer1 = () => {
             <div className="footer-content-center">
                 <h2>COMPANY</h2>
                 <ul>
-                    <li>home</li>
+                    <li>Home</li>
                     <li>About us</li>
-                    <li>privacy policy</li>
+                    <li><a href='http://localhost:5173/donation'>Donate</a></li>
+                    <li>Privacy policy</li>
                 </ul>
                 </div>    
             <div className="footer-content-right">

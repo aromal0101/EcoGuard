@@ -1,103 +1,116 @@
-/* SpeciesDetail.css */
-
 .speciesDetailsContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f4f4f4;
-    min-height: 100vh;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  .header2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #fff;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+.header2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  padding: 20px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.homeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.homeButton:hover {
+  opacity: 0.8;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.header2 h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin: 0;
+}
+
+.mainContent {
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.contentContainer {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 40px;
+}
+
+.detailsCard,
+.photoCard,
+.infoCard {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detailsCard p {
+  margin: 10px 0;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.photoCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.speciesImage {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.infoCard h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.infoCard p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .contentContainer {
     width: 100%;
-    padding: 20px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    padding: 0 10px 40px;
   }
   
-  .logo {
-    width: 120px;
-    height: auto;
-    margin-bottom: 10px;
-  }
-  
-  .header2 h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin: 0;
-  }
-  
-  .speciesDetailsContent {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    width: 90%;
-    max-width: 1200px;
-  }
-  
-  .detailsCard {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 20px;
-    margin-right: 20px;
-    width: 300px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  }
-  
-  .detailsCard img {
+  .detailsCard,
+  .photoCard,
+  .infoCard {
     width: 100%;
-    height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
   }
   
-  .detailsCard p {
-    margin: 5px 0;
-    font-size: 0.95rem;
-    color: #555;
+  .speciesImage {
+    max-width: 100%;
   }
-  
-  .threatsCard {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 20px;
-    flex: 1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .threatsCard h2,
-  .detailsCard h2 {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 15px;
-  }
-  
-  .threatsCard p {
-    font-size: 1rem;
-    color: #555;
-  }
-  
-  @media (max-width: 768px) {
-    .speciesDetailsContent {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .detailsCard {
-      margin-right: 0;
-      margin-bottom: 20px;
-      width: 90%;
-    }
-  }
-  
+}
