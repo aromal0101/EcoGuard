@@ -27,7 +27,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home headerRef={headerRef} newsRef={newsRef} partnershipRef={partnershipRef} />} />
         <Route path="/search" element={<SearchPage />} />
-        <Route path="/species/:id" element={<SpeciesDetail />} />
+        <Route path="/species/:assesmentid" element={<SpeciesDetail />} />
       </Routes>
       </div>
   );

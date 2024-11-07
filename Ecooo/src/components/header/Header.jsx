@@ -8,8 +8,8 @@ const Header = () => {
             <h2>
                 NO more animals are going to extinct
             </h2>
-            <p>Lorem  ipsum dolor sit, amet consectetur adipisicing elit. Autem corrupti facere nisi rerum eaque, sint molestias magnam quaerat aliquid eius illo ea odio adipisci quasi rem at? Excepturi, odit dolor.</p>
-            <button>explore</button>
+            <p>This phrase embodies the hope and commitment to halt the ongoing loss of species across the globe. It serves as a reminder that, through collective effort, we can prevent extinction and safeguard the diversity of life on Earth for future generations.</p>
+            <button>Donate</button>
         </div>
 
     </div>

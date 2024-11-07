@@ -118,40 +118,36 @@ WHERE 1=1 `;
 
 
 app.get('/api/species/:assesmentid', async (req, res) => {
-  const { assesmentid } = req.params;
+  const {assesmentid} = req.params;
   console.log('Received request for species with assesmentid:', assesmentid);
-
   try {
     const query = `
-              SELECT *                                                            
-              FROM speciesstatus ss
-              INNER JOIN speciesconservation sc ON ss."assesmentid" = sc."assessmentId"
-              INNER JOIN taxonomy t ON sc."internalTaxonId" = t."internalTaxonId"
-              INNER JOIN speciesdetails sd ON sc."assessmentId" = sd."assessmentId"
-              INNER JOIN speciesthreats st ON sd."assessmentId" = st."assessmentId"
-              WHERE ss."assesmentid" = $1
-              `;
-
+      SELECT *
+      FROM speciesstatus ss
+      INNER JOIN speciesconservation sc ON ss."assesmentid" = sc."assessmentId"
+      INNER JOIN taxonomy t ON sc."internalTaxonId" = t."internalTaxonId"
+      INNER JOIN speciesdetails sd ON sc."assessmentId" = sd."assessmentId"
+      INNER JOIN speciesthreats st ON sd."assessmentId" = st."assessmentId"
+      WHERE sc."assessmentId" = assesmentid;
+    `;
     console.log('Executing query:', query, 'with params:', [assesmentid]);
     const { rows } = await pool.query(query, [assesmentid]);
     console.log('Query result:', rows);
-
     if (rows.length === 0) {
       console.log('No species found for assesmentid:', assesmentid);
       return res.status(404).json({ message: 'Species not found' });
     }
-
     console.log('Sending response:', rows[0]);
     res.json(rows[0]);
   } catch (error) {
     console.error('Error fetching species:', error);
-    res.status(500).json({ 
-      message: 'Internal server error', 
+    res.status(500).json({
+      message: 'Internal server error',
       error: error.toString(),
       stack: error.stack
     });
   }
-});
+ });
 
 
 // Start the server

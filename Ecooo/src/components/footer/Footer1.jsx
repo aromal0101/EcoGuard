@@ -14,7 +14,7 @@ const Footer1 = () => {
             
             <div className="footer-content-left">
                 <img src={logo} alt="" />
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maiores autem culpa, id aliquam minima quisquam a laboriosam omnis, nam dignissimos qui accusamus dolorum! Nulla error voluptates nemo quos reprehenderit rerum?</p>
+                <p>Our platform provides essential information about endangered species to raise awareness and inspire conservation efforts. Join us in protecting biodiversity and ensuring a future where no species goes extinct.</p>
                 <div className="footer-social-icons">
                     <img src={facebook} alt="" />
                     <img src={twitter} alt="" />

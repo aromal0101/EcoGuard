@@ -5,7 +5,7 @@ import logo from '../../assets/ecoguard.png';
 import './SpeciesDetail.css';
 
 const SpeciesDetail = () => {
-  const { assesmentid } = useParams();
+  const {assesmentid} = useParams();
   const [speciesDetails, setSpeciesDetails] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -13,13 +13,12 @@ const SpeciesDetail = () => {
   useEffect(() => {
     const fetchSpeciesDetails = async () => {
       try {
+        
         console.log('Fetching species with assesmentid:', assesmentid);
         const response = await fetch(`http://localhost:3000/api/species/${assesmentid}`);
-        
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
         const data = await response.json();
         console.log('Received data:', data);
         setSpeciesDetails(data);
